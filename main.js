@@ -16,8 +16,17 @@ var Position = Struct({
     'y' : 'float'
 });
 
+var Id = Struct({
+    'player_id' : 'uint',
+    'index' : 'uint'
+});
+
 const bot1 = (x) => {
-    return;
+    for(let i = 0; i< yare.spirit_count(); i++){
+        if(yare.spirit_id(i).player_id == yare.player_me()){
+            yare.spirit_goto(i, 1500, 1500);
+        }
+    }
 }
 
 const bot_tick = ffi.Callback('void', ['int'], bot1);
@@ -98,7 +107,7 @@ var yare = ffi.Library('yareio', {
     spirit_hp: [ref.types.uint32, [
       ref.types.uint32,
     ]],
-    spirit_id: [ref.types.int32, [
+    spirit_id: [Id, [
       ref.types.uint32,
     ]],
     spirit_jump: [ref.types.void, [
